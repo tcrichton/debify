@@ -1,5 +1,6 @@
-FROM ubuntu:14.04
-MAINTAINER "Rohan Singh <rohan@washington.edu>"
+FROM ubuntu:22.04
+LABEL org.opencontainers.image.authors="Rohan Singh <rohan@washington.edu>,Tristan Crichton <stan@tcrichton.co.uk>"
+ 
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -10,11 +11,9 @@ ENV KEYSERVER keyserver.ubuntu.com
 
 ENV GNUPGHOME /.gnupg
 
-# install aptly
-RUN echo deb http://repo.aptly.info/ squeeze main >> /etc/apt/sources.list
-RUN apt-key adv --keyserver keys.gnupg.net --recv-keys E083A3782A194991
+# install aptly and xz-utils
 RUN apt-get update && \
-    apt-get install -y aptly && \
+    apt-get install -y aptly xz-utils && \
     apt-get clean
 
 ADD debify.sh /debify.sh
